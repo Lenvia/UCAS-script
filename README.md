@@ -1,5 +1,8 @@
 # UCAS_script
 Adapted from "WuYunfan/UCAS_course_script"
+https://github.com/WuYunfan/UCAS_course_script
+
+Warning: Only postgraduate courses are supported.
 
 
 ## Instructions
