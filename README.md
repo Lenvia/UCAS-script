@@ -15,11 +15,13 @@ Adapted from [WuYunfan/UCAS_course_script](https://github.com/WuYunfan/UCAS_cour
 2. Refer to "config_sample.json" to fill in account information and course information. (You can view the source code on the course selection page to get the deptId, if you don’t specify it, it will automatically select all).
 
 3. Install dependencies
-```
-pip install -r requirements.txt
-```
+	```
+	pip install -r requirements.txt
+	```
 
 3. Run the program.
-```
-python script1.py
-```
+	```
+	python script1.py
+	```
+
+
