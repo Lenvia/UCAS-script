@@ -10,6 +10,14 @@ Warning: Only postgraduate courses are supported.
 Verification code recognition technology provided by XuanBao.
 https://drive.google.com/file/d/1QsWvbpxFKPfCiZlfDZY5PsDwjyenEtrU/view?usp=sharing
 
-2. Refer to "config_sample.json" to fill in account information and course information.
+2. Refer to "config_sample.json" to fill in account information and course information. (You can view the source code on the course selection page to get the deptId, if you don’t specify it, it will automatically select all).
+
+3. Install dependencies
+```
+pip install -r requirements.txt
+```
 
 3. Run the program.
+```
+python script1.py
+```
