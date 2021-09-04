@@ -311,8 +311,12 @@ def select_separately(event):
 
             soup = BeautifulSoup(select_result_page.text, "html.parser")
             res = soup.find(text=re.compile(course))
-            if res is not None:
-                print("#########选课成功！课程编码为 %s #############" % course)
+            if res is not None:  # 结果网页中搜索到了，可能是抢上了，也可能是本来有重复的了
+                repetition = soup.find(text=re.compile("只能选一门"))
+                if repetition is not None:
+                    print("选课重复！已存在与 %s 相同的课程，建议移出选课列表！" % course)
+                else:
+                    print("#########选课成功！课程编码为 %s #############" % course)
                 course_list.remove(course)
 
                 if len(course_list) == 0:
