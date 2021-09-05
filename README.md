@@ -14,14 +14,21 @@ Adapted from [WuYunfan/UCAS_course_script](https://github.com/WuYunfan/UCAS_cour
 
 2. Refer to "config_sample.json" to create a new configuration file named "config.json" and fill in account information and course information. (You can view the source code on the course selection page to get the deptId, if you don’t specify it, it will automatically select all).
 
+   For example:
+
+   > {
+   >     "username" : "xxxx",
+   >     "password" : "xxxx",
+   >     "courses" : ["070100M01003H"],
+   >     "labels": ["910"]
+   > }
+
 3. Install dependencies
-	```
-	pip install -r requirements.txt
-	```
+  ```
+  pip install -r requirements.txt
+  ```
 
-3. Run the program.
-	```
-	python script1.py
-	```
-
-
+4. Run the program.
+  ```
+  python script1.py
+  ```
