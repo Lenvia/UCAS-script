@@ -2,5 +2,7 @@
     "username" : "your username",
     "password" : "your password",
     "courses" : ["030500MGB001H-11"],
-    "deptIds" : []
+    "deptIds" : [],
+
+    "receivers": ["your email address"]
 }

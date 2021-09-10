@@ -9,6 +9,16 @@ from urllib import request
 from http import cookiejar
 from bs4 import BeautifulSoup
 import sys
+import smtplib
+from email.header import Header
+from email.mime.text import MIMEText
+from email.utils import parseaddr, formataddr
+
+
+def __format_addr(k):
+    name, addr = parseaddr(k)
+    return formataddr((Header(name, 'utf-8').encode(), addr))
+
 
 ocrJson = open('ocr.json', 'r')
 data = json.load(ocrJson)
@@ -21,6 +31,44 @@ model = keras.models.load_model('ocr.h5')
 name_student = None
 
 signal = False
+
+def notification(mail_content):
+    mail_title = '选课结果通知'
+
+    config = json.load(open("config.json", "r"))
+    sender_email = "course_notice@126.com"  # 公共邮箱
+    sender_pwd = "IDHFNLNKXZAVXZXK"  # 授权码
+    sender_server = "smtp.126.com"
+    receivers = config.get('receivers')
+
+    if len(receivers) != 0:
+        try:
+            # ssl登录
+            smtp = smtplib.SMTP_SSL(sender_server)
+            # set_debuglevel()是用来调试的。参数值为1表示开启调试模式，参数值为0关闭调试模式
+            smtp.set_debuglevel(1)
+            smtp.ehlo(sender_server)
+            smtp.login(sender_email, sender_pwd)
+
+            try:
+                msg = MIMEText(mail_content, "plain", 'utf-8')
+                msg["Subject"] = Header(mail_title, 'utf-8').encode()
+                msg["From"] = __format_addr(sender_email)
+                msg["To"] = __format_addr(receivers)
+                smtp.sendmail(sender_email, receivers, msg.as_string())
+                smtp.quit()
+                print("邮件通知成功！")
+                return "success"
+
+            except:
+                return "error"
+
+        except smtplib.SMTP_SSLException as e:
+            print("登录失败！请检查配置文件信息！")
+            return "error"
+
+
+
 
 
 def post_data(url, data=None, time_out=3, retry=5):
@@ -266,6 +314,8 @@ def add_course_code_to_payload(course, select_course_page):
     # print(course_code.group(1))
     if course_code is None:
         print(course + ': 该课程编码不可用（可能已经选过了）, 请将该课程编码从抢课列表中移除。')
+        notification("课程 %s 选课成功！" % course)
+
         return 0
     else:
         select_course_payload['sids'].append(course_code.group(1))
@@ -317,6 +367,7 @@ def select_separately(event):
                     print("选课重复！已存在与 %s 相同的课程，建议移出选课列表！" % course)
                 else:
                     print("#########选课成功！课程编码为 %s #############" % course)
+                    notification("课程 %s 选课成功！" % course)
                 course_list.remove(course)
 
                 if len(course_list) == 0:
