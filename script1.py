@@ -314,7 +314,6 @@ def add_course_code_to_payload(course, select_course_page):
     # print(course_code.group(1))
     if course_code is None:
         print(course + ': 该课程编码不可用（可能已经选过了）, 请将该课程编码从抢课列表中移除。')
-        notification("课程 %s 选课成功！" % course)
 
         return 0
     else:
