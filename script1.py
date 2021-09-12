@@ -13,6 +13,7 @@ import smtplib
 from email.header import Header
 from email.mime.text import MIMEText
 from email.utils import parseaddr, formataddr
+import random
 
 
 def __format_addr(k):
@@ -40,6 +41,7 @@ def notification(mail_content):
     sender_pwd = "IDHFNLNKXZAVXZXK"  # 授权码
     sender_server = "smtp.126.com"
     receivers = config.get('receivers')
+
 
     if len(receivers) != 0:
         try:
@@ -314,7 +316,6 @@ def add_course_code_to_payload(course, select_course_page):
     # print(course_code.group(1))
     if course_code is None:
         print(course + ': 该课程编码不可用（可能已经选过了）, 请将该课程编码从抢课列表中移除。')
-
         return 0
     else:
         select_course_payload['sids'].append(course_code.group(1))
@@ -371,6 +372,7 @@ def select_separately(event):
 
                 if len(course_list) == 0:
                     print("已全部完成，即将退出程序")
+                    notification("选课结束！请登录网站查看结果！")
                     signal = True
             else:
                 print("暂时无法选课，即将重试！")
@@ -392,8 +394,7 @@ while True:
 
         if signal is True:
             break
-        time.sleep(3)
-
+        time.sleep(random.randint(3, 9))
 
     except:
         pass
