@@ -2,6 +2,14 @@
 Adapted from [WuYunfan/UCAS_course_script](https://github.com/WuYunfan/UCAS_course_script)
 
 
+⚠️ **Due to the update of the site validation mechanism, the current version is no longer suitable.**
+
+It will be updated someday. (mainly because we are too lazy...)
+
+(The scheme is very simple, that is, the identification(s) of the verification code and course selection submission need to be updated.)
+
+
+
 **Warning: Only postgraduate courses are supported.**
 
 
